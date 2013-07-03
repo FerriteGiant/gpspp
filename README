@@ -1,0 +1,22 @@
+The set of scripts in the folder will upload rinex data files to
+this site http://geoapps.nrcan.gc.ca/applications/0/Canadian%20Spatial
+
+Store your credentials and the email address to return data to in
+the uploadGPSdata.conf file
+
+Use batchGPSupload.sh to upload many files at a time (serially)
+See batchGPSupload.sh for usage instructions
+
+---Process outline---
+
+1. Enter login info into uploadGPSdata.conf
+2. Run batchGPSupload.sh
+	- This calls login.sh which sources uploadGPSdata.conf,
+	  sends login request, and then saves the output to loginOutput.html
+	- For each file uploadGPSdata.sh is called
+	- This parses the loginOutput.html file by calling parseline.awk
+	  to obtain the needed info
+	- Submits the file and outputs confirmationPage.html
+	- Sleeps for a random time between minSeconds and maxSeconds
+		-Note: It will sleep one last time after the last upload
+

@@ -27,8 +27,8 @@ http://webapp.csrs.nrcan.gc.ca/field/Scripts/CSRS_PPP_cgi.pl \
 > confirmationPage.html
 
 #Sleep for a random number of seconds to emulate a human
-minSeconds=20
-maxSeconds=30
+minSeconds=100
+maxSeconds=130
 r=$(( ( $RANDOM % $(($maxSeconds-$minSeconds))+$minSeconds ) ))
 echo "Sleeping for $r seconds..."
 sleep $r

@@ -1,11 +1,15 @@
 The set of scripts in the folder will upload rinex data files to
 this site http://geoapps.nrcan.gc.ca/applications/0/Canadian%20Spatial
+and download the resulting processed files.
 
 Store your credentials and the email address to return data to in
 the uploadGPSdata.conf file
 
 Use batchGPSupload.sh to upload many files at a time (serially)
 See batchGPSupload.sh for usage instructions
+
+Use batchPPdownload.sh to download the results
+See batchPPdownload.sh for usage instructions
 
 ---Process outline---
 
@@ -17,6 +21,13 @@ See batchGPSupload.sh for usage instructions
 	- This parses the loginOutput.html file by calling parseline.awk
 	  to obtain the needed info
 	- Submits the file and outputs confirmationPage.html
+	- Parses confirmationPage.html and creates the download link which 
+	  is then saved to the file downloadurls.log (calls findOutputURL.awk)
 	- Sleeps for a random time between minSeconds and maxSeconds
 		-Note: It will sleep one last time after the last upload
+3. Run batchPPdownload.sh <url file> <save directory>
+	- Downloads all files linked to in the downloadurls.log file
+	- Saves them to the user specified directory
+	- Appends .finished to the file name to for the sake of record keeping
+		- files will be ignored by git
 

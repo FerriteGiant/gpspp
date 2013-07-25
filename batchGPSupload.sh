@@ -15,7 +15,7 @@ STARTDIR=`readlink -f $1`
 
 #Find all files in or below the search directory which match
 #the search string and save full paths to FILES
-FILES=`find -L ${STARTDIR}  -name "$2"` 
+FILES=`find -L ${STARTDIR}  -name "$2" | sort` 
 
 #Display those files
 for a in $FILES

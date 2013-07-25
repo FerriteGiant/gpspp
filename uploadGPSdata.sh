@@ -26,9 +26,13 @@ curl -i -L --form "rfile_upload=@$1" \
 http://webapp.csrs.nrcan.gc.ca/field/Scripts/CSRS_PPP_cgi.pl \
 > confirmationPage.html
 
+cat confirmationPage.html | awk -f findOutputURL.awk >> downloadurls.log
+
+
+
 #Sleep for a random number of seconds to emulate a human
-minSeconds=100
-maxSeconds=130
+minSeconds=50
+maxSeconds=60
 r=$(( ( $RANDOM % $(($maxSeconds-$minSeconds))+$minSeconds ) ))
 echo "Sleeping for $r seconds..."
 sleep $r

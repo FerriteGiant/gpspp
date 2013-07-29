@@ -1,38 +1,34 @@
 #Source conf file to obtain return_email
 . uploadGPSdata.conf
 
-#Parse the loginOutput.html file for the user and session id
-USERNAMEANDID=`cat loginOutput.html| awk -f parseline.awk`
-USER=`echo $USERNAMEANDID | cut -f 1 -d " "`
-SESSIONID=`echo $USERNAMEANDID | cut -f 2 -d " "`
+#if [ "$USER" == '' ] || [ "$SESSIONID" == '' ]
+#then
+#        echo "Login failed!"
+#        exit 1
+#fi
 
-if [ "$USER" == '' ] || [ "$SESSIONID" == '' ]
-then
-	echo "Login failed!"
-	exit 1
-fi
-
-echo "Login data: $USER - $SESSIONID"
 
 #Submit file passed in from calling script
-curl -i -L --form "rfile_upload=@$1" \
+curl -i -L --cookie "cookies.txt" \
+--form "return_email=${RETURN_EMAIL}" \
 --form "process_type=Static" \
 --form "sysref_system=ITRF" \
---form "return_email=${RETURN_EMAIL}" \
+--form "rfile_upload=@$1" \
 --form "cmd_process_type=std" \
---form "user_name=${USER}" \
---form "session_id=${SESSIONID}" \
+--form "ppp_access=real_browser" \
+--form "user_id=31332" \
 --form "language=en" \
-http://webapp.csrs.nrcan.gc.ca/field/Scripts/CSRS_PPP_cgi.pl \
+http://webapp.geod.nrcan.gc.ca/geod/process/ppp_process.php \
 > confirmationPage.html
 
-cat confirmationPage.html | awk -f findOutputURL.awk >> downloadurls.log
+#cat confirmationPage.html | awk -f findOutputURL.awk >> downloadurls.log
+ 
+#cat confirmationPage.html | awk -f confirmUpload.awk filePath=$1 >> upload.log
 
-cat confirmationPage.html | awk -f confirmUpload.awk filePath=$1 >> upload.log
 
 #Sleep for a random number of seconds to emulate a human
-minSeconds=50
-maxSeconds=60
+minSeconds=5
+maxSeconds=10
 r=$(( ( $RANDOM % $(($maxSeconds-$minSeconds))+$minSeconds ) ))
 echo "Sleeping for $r seconds..."
 sleep $r

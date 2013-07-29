@@ -45,10 +45,6 @@ do
 	#echo "$a"
 	./uploadGPSdata.sh $b
 
-	#Sleep for a random number of seconds to emulate a human
-#	r=$(( ( $RANDOM % 40 + 20 ) ))
-#	echo "Sleeping for $r seconds..."
-#	sleep $r
 done
 
 #rm loginOutput.html

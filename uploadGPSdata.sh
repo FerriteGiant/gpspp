@@ -28,7 +28,7 @@ http://webapp.csrs.nrcan.gc.ca/field/Scripts/CSRS_PPP_cgi.pl \
 
 cat confirmationPage.html | awk -f findOutputURL.awk >> downloadurls.log
 
-
+cat confirmationPage.html | awk -f confirmUpload.awk filePath=$1 >> upload.log
 
 #Sleep for a random number of seconds to emulate a human
 minSeconds=50

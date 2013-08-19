@@ -27,8 +27,8 @@ http://webapp.geod.nrcan.gc.ca/geod/process/ppp_process.php \
 
 
 #Sleep for a random number of seconds to emulate a human
-minSeconds=5
-maxSeconds=10
+minSeconds=30
+maxSeconds=40
 r=$(( ( $RANDOM % $(($maxSeconds-$minSeconds))+$minSeconds ) ))
 echo "Sleeping for $r seconds..."
 sleep $r

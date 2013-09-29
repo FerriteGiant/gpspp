@@ -18,7 +18,7 @@ STARTDIR=`readlink -f $1`
 #Find all files in or below the search directory which match
 #the search string and save full paths to FILES
 #FILES=`find -L ${STARTDIR}  -name "$2" | sort` #Use this line instead for simpler searching
-FILES=`find -L ${STARTDIR}  -regextype posix-extended -regex "$2" | sort` 
+FILES=`find -L ${STARTDIR}  -regextype "posix-extended" -regex "$2" | sort` 
 
 #Display those files
 for a in $FILES

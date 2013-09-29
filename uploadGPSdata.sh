@@ -9,7 +9,7 @@
 
 
 #Submit file passed in from calling script
-curl -iD -L --cookie "cookies.txt" \
+curl -iL --cookie "cookies.txt" \
 --form "return_email=${RETURN_EMAIL}" \
 --form "process_type=Static" \
 --form "sysref_system=ITRF" \
@@ -21,6 +21,7 @@ curl -iD -L --cookie "cookies.txt" \
 --form "static_with_smoothing=1" \
 http://webapp.geod.nrcan.gc.ca/geod/process/ppp_process.php \
 > confirmationPage.html
+
 
 #--form "ppp_access=nobrowser_status" \
 #cat confirmationPage.html | awk -f findOutputURL.awk >> downloadurls.log

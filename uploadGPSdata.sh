@@ -9,7 +9,7 @@
 
 
 #Submit file passed in from calling script
-curl -i -L --cookie "cookies.txt" \
+curl -iD -L --cookie "cookies.txt" \
 --form "return_email=${RETURN_EMAIL}" \
 --form "process_type=Static" \
 --form "sysref_system=ITRF" \
@@ -18,18 +18,20 @@ curl -i -L --cookie "cookies.txt" \
 --form "ppp_access=real_browser" \
 --form "user_id=31332" \
 --form "language=en" \
+--form "static_with_smoothing=1" \
 http://webapp.geod.nrcan.gc.ca/geod/process/ppp_process.php \
 > confirmationPage.html
 
+#--form "ppp_access=nobrowser_status" \
 #cat confirmationPage.html | awk -f findOutputURL.awk >> downloadurls.log
  
 #cat confirmationPage.html | awk -f confirmUpload.awk filePath=$1 >> upload.log
 
 
 #Sleep for a random number of seconds to emulate a human
-minSeconds=30
-maxSeconds=40
-r=$(( ( $RANDOM % $(($maxSeconds-$minSeconds))+$minSeconds ) ))
+minSeconds=5
+maxSeconds=10
+r=$(( $RANDOM % $(($maxSeconds-$minSeconds)) + $minSeconds ))
 echo "Sleeping for $r seconds..."
 sleep $r
 

@@ -12,10 +12,10 @@ fi
 
 
 #Get the full path for the save directory
-SAVEDIR=`readlink -f $1`
+SAVEDIR=`readlink -f $2`
 
-#Get the full path for the save directory
-FILELIST=`readlink -f $2`
+#Get the full path for the URL file
+FILELIST=`readlink -f $1`
 
 echo "#######################"
 echo "Files to be downloaded"

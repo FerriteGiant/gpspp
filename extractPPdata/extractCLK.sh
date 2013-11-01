@@ -17,9 +17,9 @@ STARTDIR=`readlink -f $1`
 #Get the full path for the destination directory
 DESTDIR=`readlink -f $3`
 
-#Find all files in or below the search directory which match
+#Find all files in the search directory which match
 #the search string and save full paths to FILES
-FILES=`find -L ${STARTDIR}  -regextype "posix-extended" -regex "$2"`
+FILES=`find -L ${STARTDIR} -maxdepth 1  -regextype "posix-extended" -regex "$2"`
 SortedFILES=$(echo $FILES | awk -F/ '{print $NF}' RS=" " | sort -t_ -k 3)
 
 #Display those files
